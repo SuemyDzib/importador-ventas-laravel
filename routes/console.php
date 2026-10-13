@@ -19,6 +19,7 @@ Artisan::command('demo:cargar', function (SalesImporter $importer) {
 
     $path = base_path('ejemplos/ventas_con_errores.xlsx');
     $import = $importer->import(new UploadedFile($path, 'ventas_con_errores.xlsx', null, null, true));
+    $import->update(['is_protected' => true]);
 
     $this->info("Demo cargada: {$import->valid_rows} válidas, {$import->invalid_rows} con errores.");
 })->purpose('Carga el archivo de ejemplo para la demo');

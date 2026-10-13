@@ -73,6 +73,11 @@ class ImportController extends Controller
 
     public function destroy(Import $import): RedirectResponse
     {
+        if ($import->is_protected) {
+            return redirect()->route('imports.index')
+                ->with('status', 'El archivo de demostración no se puede eliminar.');
+        }
+
         if ($import->stored_path) {
             Storage::delete($import->stored_path);
         }

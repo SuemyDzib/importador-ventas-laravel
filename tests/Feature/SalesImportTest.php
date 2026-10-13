@@ -125,4 +125,18 @@ class SalesImportTest extends TestCase
         $this->get(route('dashboard'))->assertOk();
         $this->get(route('imports.errors', $import))->assertOk();
     }
+
+    public function test_el_archivo_de_demo_no_se_puede_eliminar(): void
+    {
+        $import = Import::create([
+            'original_name' => 'ventas_con_errores.xlsx',
+            'status' => Import::STATUS_COMPLETED,
+            'is_protected' => true,
+        ]);
+
+        $this->delete(route('imports.destroy', $import))
+            ->assertRedirect(route('imports.index'));
+
+        $this->assertModelExists($import);
+    }
 }

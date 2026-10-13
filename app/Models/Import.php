@@ -15,11 +15,12 @@ class Import extends Model
 
     protected $fillable = [
         'original_name', 'stored_path', 'status', 'strict',
-        'total_rows', 'valid_rows', 'invalid_rows', 'meta', 'finished_at',
+        'total_rows', 'valid_rows', 'invalid_rows', 'meta', 'finished_at', 'is_protected',
     ];
 
     protected $casts = [
         'strict' => 'boolean',
+        'is_protected' => 'boolean',
         'total_rows' => 'integer',
         'valid_rows' => 'integer',
         'invalid_rows' => 'integer',

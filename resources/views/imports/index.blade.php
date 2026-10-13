@@ -113,11 +113,15 @@
                                 <td class="num">{{ number_format($import->invalid_rows) }}</td>
                                 <td><span class="badge {{ $import->statusTone() }}">{{ $import->statusLabel() }}</span></td>
                                 <td class="num">
-                                    <form method="POST" action="{{ route('imports.destroy', $import) }}"
-                                          onsubmit="return confirm('¿Eliminar este archivo y las ventas que se guardaron con él?')">
-                                        @csrf @method('DELETE')
-                                        <button class="btn btn-danger" type="submit">Eliminar</button>
-                                    </form>
+                                    @if ($import->is_protected)
+                                        <span class="badge neutral" title="Archivo de demostración, no se puede eliminar">Demo</span>
+                                    @else
+                                        <form method="POST" action="{{ route('imports.destroy', $import) }}"
+                                            onsubmit="return confirm('¿Eliminar este archivo y las ventas que se guardaron con él?')">
+                                            @csrf @method('DELETE')
+                                            <button class="btn btn-danger" type="submit">Eliminar</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
